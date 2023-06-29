@@ -92,7 +92,7 @@ def create_playlist(spotify, username, playlist_name, track_ids):
 
 
 def main():
-    date = "2000-08-12"  # Specify the date in the format YYYY-MM-DD
+    date = input("Enter the date in the format YYYY-MM-DD: ")  # Specify the date in the format YYYY-MM-DD
     playlist_name = f"{date} Billboard Chart"
     year = int(date[:4])
 

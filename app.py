@@ -73,7 +73,7 @@ def search_tracks_in_spotify(spotify, top_100, year):
 
     return track_ids
 
-
+playlist_created = False
 def check_if_playlist_exists(spotify, username, playlist_name):
     playlists = spotify.user_playlists(user=username)
 
@@ -88,13 +88,17 @@ def create_playlist(spotify, username, playlist_name, track_ids):
     if not check_if_playlist_exists(spotify, username, playlist_name):
         playlist = spotify.user_playlist_create(user=username, name=playlist_name, public=True)
         spotify.playlist_add_items(playlist_id=playlist['id'], items=track_ids)
-        print(f"Playlist '{playlist_name}' created successfully.")
+        print(f"Playlist '{playlist_name}' created successfully")
+        global playlist_created
+        playlist_created = True
     else:
         print(f"Playlist '{playlist_name}' already exists.")
 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    playlist_created = False  # Add this line
+
     if request.method == "POST":
         date = request.form.get("date")
         playlist_name = f"{date} Billboard Chart"
@@ -110,6 +114,6 @@ def index():
 
         create_playlist(spotify, username, playlist_name, track_ids)
 
-        return f"Playlist '{playlist_name}' created successfully."
+        playlist_created = True  # Set the variable to True if the playlist is created successfully
 
-    return render_template("index.html")
+    return render_template("index.html", playlist_created=playlist_created)  # Pass the variable to the template

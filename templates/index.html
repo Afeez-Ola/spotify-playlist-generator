@@ -52,6 +52,16 @@
         button[type="submit"]:hover {
             background-color: #45a049;
         }
+
+        .success-message {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -62,5 +72,11 @@
         <input type="text" id="date" name="date" required>
         <button type="submit">Create Playlist</button>
     </form>
+
+    {% if playlist_created %}
+    <div class="success-message">
+        Playlist '{{ playlist_name }}' created successfully.
+    </div>
+    {% endif %}
 </body>
 </html>

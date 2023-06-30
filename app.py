@@ -105,9 +105,15 @@ def index():
     playlist_link = None  # Declare the playlist_link variable
 
     if request.method == "POST":
-        date = request.form.get("date")
-        playlist_name = f"{date} Billboard Chart"
-        year = int(date[:4])
+        try:
+            date = request.form.get("date")
+            playlist_name = f"{date} Billboard Chart"
+            year = int(date[:4])
+        except ValueError:
+            # Handle the case when an invalid date format is entered
+            date = None
+            playlist_name = None
+            year = None
 
         top_100 = get_top_100_songs(date)
 

@@ -129,3 +129,7 @@ def index():
         playlist_link = playlist["external_urls"]["spotify"]
 
     return render_template("index.html", playlist_created=playlist_created, playlist_link=playlist_link)
+
+
+if __name__ == "__main__":
+    app.run(debug=False,host='0.0.0.0')
